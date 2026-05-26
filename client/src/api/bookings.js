@@ -1,7 +1,7 @@
 
 import { axiosInstance } from ".";
 
-const BASE_URL = "http://localhost:8080/api/booking";
+const BASE_URL = "/api/booking";
 
 export const makePayment = async (token, amount) => {
     try {

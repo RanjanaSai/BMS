@@ -1,6 +1,6 @@
 import { axiosInstance } from "./index";
 
-const BASE_URL = "http://localhost:8080/api/show";
+const BASE_URL = "/api/show";
 
 
 export const addShow = async (values) => {
