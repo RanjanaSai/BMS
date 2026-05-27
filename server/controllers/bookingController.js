@@ -80,24 +80,39 @@ const bookNewShow = async (req, res) => {
       data: populatedBooking,
     });
 
-    await sendEmailHelper("ticketTemplate.html", populatedBooking.user.email, {
-      name: populatedBooking.user.name,
-      movie: populatedBooking.show.movie.movieName,
-      theatre: populatedBooking.show.theatre.name,
-      date: populatedBooking.show.date,
-      time: populatedBooking.show.time,
-      seats: populatedBooking.seats,
-      amount: populatedBooking.seats.length * populatedBooking.show.ticketPrice,
-      transactionId: populatedBooking.transactionId,
-    }, "Booking Confirmation");
-  } catch (err) {
-    res.send({
-      success: false,
-      message: err.message,
-    });
+    //   await sendEmailHelper("ticketTemplate.html", populatedBooking.user.email, {
+    //     name: populatedBooking.user.name,
+    //     movie: populatedBooking.show.movie.movieName,
+    //     theatre: populatedBooking.show.theatre.name,
+    //     date: populatedBooking.show.date,
+    //     time: populatedBooking.show.time,
+    //     seats: populatedBooking.seats,
+    //     amount: populatedBooking.seats.length * populatedBooking.show.ticketPrice,
+    //     transactionId: populatedBooking.transactionId,
+    //   }, "Booking Confirmation");
+    // } catch (err) {
+    //   res.send({
+    //     success: false,
+    //     message: err.message,
+    //   });
+    // }
+    // }
+    if (populatedBooking?.user?.email) {
+      await sendEmailHelper("ticketTemplate.html", populatedBooking.user.email, {
+        name: populatedBooking.user.name || "Valued Customer",
+        movie: populatedBooking?.show?.movie?.movieName || "Movie",
+        theatre: populatedBooking?.show?.theatre?.name || "Theatre",
+        date: populatedBooking?.show?.date,
+        time: populatedBooking?.show?.time,
+        seats: populatedBooking?.seats,
+        amount: populatedBooking?.seats?.length * (populatedBooking?.show?.ticketPrice || 0),
+        transactionId: populatedBooking?.transactionId,
+      }, "Booking Confirmation");
+    } else {
+      console.warn("Could not send booking email: User information or email is missing.");
+    }
   }
 }
-
 const getAllBookingsByUser = async (req, res) => {
   try {
     const userId = req.body.userId;
