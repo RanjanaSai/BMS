@@ -36,10 +36,10 @@ app.use(express.json());//parse incoming json request
 //apply rate limiter middleware
 // app.use('/api/', apiLimiter);
 
-app.use(express.static(path.join(__dirname, 'build')));
-app.get('/*splat', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-})
+// app.use(express.static(path.join(__dirname, 'build')));
+// app.get('/*splat', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// })
 
 
 app.use('/api/user', userRoute)
