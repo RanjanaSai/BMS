@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
+const path = require('path');
 //const mongoSanitize = require('express-mongo-sanitize');
 
 const connectDB = require('./config/db');
@@ -34,6 +35,12 @@ app.use(cors());// allowing CORS requests
 
 //apply rate limiter middleware
 // app.use('/api/', apiLimiter);
+
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+})
+
 
 app.use('/api/user', userRoute)
 app.use('/api/movie', movieRoute)
