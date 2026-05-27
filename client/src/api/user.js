@@ -1,5 +1,5 @@
 import { axiosInstance } from "./index";
-const BASE_URL = '/api/user';
+const BASE_URL = "/api/user";
 
 export const RegisterUser = async (values) => {
     try {
