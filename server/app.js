@@ -30,7 +30,7 @@ const PORT = 8080;
 
 app.use(helmet());
 app.use(express.json());//parse incoming json request
-app.use(cors());// allowing CORS requests
+//app.use(cors());// allowing CORS requests
 
 
 //apply rate limiter middleware
